@@ -1,11 +1,11 @@
 {
     "layer": "top",
-    "position": "top",
+    "position": "bottom",
     "height": 30,
 
     "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather", "cpu", "temperature", "memory", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
+    "modules-right": ["tray", "custom/weather", "cpu", "temperature", "memory", "custom/storage", "battery", "pulseaudio", "network", "idle_inhibitor", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -32,12 +32,12 @@
         "tooltip": false
     },
     "network": {
-        "format": "{icon} {ipaddr}",
+        "format": "{icon} ",
         "format-alt": "{ipaddr}/{cidr} {icon}",
         "format-alt-click": "on-click",
         "format-icons": {
             "wifi": ["", "" ,""],
-            "ethernet": ["⛗ "],
+            "ethernet": ["🖧 "],
             "disconnected": [""]
         },
         "click-right": "nmcli con up id 'São Paulo (GRU2)'",
@@ -72,7 +72,7 @@
         "exec": "~/.config/waybar/modules/storage.sh"
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% 🐏"
     },
     "temperature": {
         // "thermal-zone": 2,
