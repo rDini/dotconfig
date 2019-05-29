@@ -13,6 +13,10 @@ set $screenshot grim ~/Pictures/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").pn
 set $screenclip slurp | grim -g - ~/Pictures/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
 set $lock ~/.local/bin/scripts/lock.sh
 set $randomlock /usr/local/bin/locksway
+set $blackout swaylock -c 000000
+# Bellow lock screen is set for 3 monitors, (or 2) and will set $background on the middle one . 
+set $qseblack swaylock -c 000000 -i $(swaymsg -t get_outputs | jq -r '.[] .name' | sed -n 2p):$background
+
 
 set $background /home/rdini/Pictures/wallpaper/motherofdragons.png
 
@@ -140,10 +144,12 @@ workspace_auto_back_and_forth yes
 input "1008:12874:Chicony_HP_USB_Slim_Keyboard_System_Control" {
 	xkb_layout br
 	xkb_variant thinkpad
+	xkb_numlock enabled
 }
 
 input "1008:12874:Chicony_HP_USB_Slim_Keyboard" {
         xkb_layout br
+	xkb_numlock enabled
 #        xkb_variant thinkpad
 }
 
@@ -374,6 +380,9 @@ bindsym $mod+Shift+e mode "$mode_system"
 
 bindsym Control+$alt+k exec $lock
 bindsym Control+$alt+l exec $randomlock
+bindsym Control+$mod+k exec $blackout
+bindsym Control+$mod+l exec $qseblack
+
 
 #exec_always ~/.config/waybar/waybar.sh
 
