@@ -28,15 +28,13 @@ $ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-re
   I did a fresh install, so it might be it..
 
 ```
-$ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsigc++ lpf-spotify-client pavucontrol python2-devel sway-debugsource xdotool
+$ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsigc++ pavucontrol python2-devel sway-debugsource xdotool
 ```
-
-### Some groups installed
+### Fixing some errors on journalctl from sway:
 ```
-$ sudo dnf groupupdate multimedia
-$ sudo dnf groupupdate sound-and-video
+$ sudo dnf install sway-debugsource
+$ sudo dnf install libappindicator-*
 ```
-
 ### To make and build the lockscreen work:
 ```
 $ sudo dnf install gcc-go ninja-build meson git libinput make libsigc++
@@ -61,13 +59,14 @@ $ sudo dnf config-manager --set-enabled google-chrome
 
 $ sudo dnf install google-chrome-stable
 ```
-## Fixing some errors on journalctl from sway:
-```
-$ sudo dnf install sway-debugsource
-$ sudo dnf install libappindicator-*
-```
 ### Installing Spotify:
+#### Some groups installed for it to work
 ```
+$ sudo dnf groupupdate multimedia
+$ sudo dnf groupupdate sound-and-video
+```
+```
+$ sudo dnf install lpf-spotify-client
 $ lpf approve spotify-client
 $ sudo dnf install /var/lib/lpf/rpms/spotify-client/spotify-client-*.rpm
 ```
