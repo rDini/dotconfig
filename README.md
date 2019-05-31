@@ -29,7 +29,7 @@ $ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-re
       I did a fresh install, so it might be it..
 
 ```
-$ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsigc++ hexchat lpf-spotify-client pavucontrol python2-devel sway-debugsource xdotool neofetch
+$ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsigc++ lpf-spotify-client pavucontrol python2-devel sway-debugsource xdotool
 ```
 
 ## Some groups installed
@@ -51,26 +51,31 @@ $ go build
 
 $ sudo cp corrupter /usr/local/bin/
 ```
+# For a fresh install, Other helpful things to install:
 
-## [rsawaroha-release](https://github.com/ryran/xsos) installed manually : 
+### [rsawaroha-release](https://github.com/ryran/xsos) installed manually : 
 ```
 $ sudo dnf install http://people.redhat.com/rsawhill/rpms/latest-rsawaroha-release.rpm
 $ sudo dnf install xsos rsar
 ```
-# For Chrome:
+## For Chrome:
 ```
 $ sudo dnf install fedora-workstation-repositories
 $ sudo dnf config-manager --set-enabled google-chrome
 
 $ sudo dnf install google-chrome-stable
 ```
-# Fixing some errors on journalctl from sway:
+## Fixing some errors on journalctl from sway:
 ```
 $ sudo dnf install sway-debugsource
 $ sudo dnf install libappindicator-*
 ```
-# Installing Spotify:
+## Installing Spotify:
 ```
 $ lpf approve spotify-client
 $ sudo dnf install /var/lib/lpf/rpms/spotify-client/spotify-client-*.rpm
+```
+## Other packages:
+```
+sudo dnf install unrar neofetch linphone hexchat 
 ```
