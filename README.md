@@ -34,8 +34,8 @@ $ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsig
 
 ## Some groups installed
 ```
-  $ sudo dnf groupupdate multimedia
-  $ sudo dnf groupupdate sound-and-video
+$ sudo dnf groupupdate multimedia
+$ sudo dnf groupupdate sound-and-video
 ```
 
 ## Other that I had to use to build suplementary things:
