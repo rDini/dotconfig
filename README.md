@@ -3,7 +3,7 @@
 What I had to install, run or compile:
 
 ## Add the copr repo to install newer SWAY packages:
-I'm getting my sway from (Guimeri COPR)[https://copr.fedorainfracloud.org/coprs/gumieri/sway/]:
+I'm getting my sway from [Guimeri COPR](https://copr.fedorainfracloud.org/coprs/gumieri/sway/):
 ```
 $ sudo dnf copr enable gumieri/sway
 ```
