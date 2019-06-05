@@ -17,8 +17,10 @@ set $blackout swaylock -c 000000
 # Bellow lock screen is set for 3 monitors, (or 2) and will set $background on the middle one . 
 set $qseblack swaylock -c 000000 -i $(swaymsg -t get_outputs | jq -r '.[] .name' | sed -n 2p):$background
 
-
 set $background /home/rdini/Pictures/wallpaper/motherofdragons.png
+
+set $telegram ~/Downloads/Telegram\ Desktop/tsetup.1.7.0/Telegram/Updater
+
 
 # Set Multimidia keys
 set $play $mod+F11
@@ -33,9 +35,17 @@ set $dp-1 'Unknown 0x0521 0x00000000'
 set $dp-2 'Dell Inc. DELL P2214H KW14V38B1N0L'
 set $dp-3 'Lenovo Group Limited L1951p Wide   6V6Z8119'
 
-bindsym $play exec playerctl --player=spotify play-pause
-bindsym $next exec playerctl --player=spotify next
-bindsym $prev exec playerctl --player=spotify previous
+# Your preferred terminal emulator
+#set $term urxvt256c-ml
+set $term gnome-terminal
+
+# Your preferred application launcher
+set $menu dmenu_run
+
+
+bindsym $play exec playerctl play-pause
+bindsym $next exec playerctl next
+bindsym $prev exec playerctl previous
 #bindsym $stop exec playerctl --player=spotify stop
 bindsym $mute exec playerctl --player=spotify volume 0
 bindsym $volup exec /usr/bin/pactl set-sink-volume 0 +5%
@@ -72,7 +82,7 @@ set $ws9   9:9
 set $ws0   10:10
 
 # Font
-font pango:Sans 12
+font "Hack" 11
 
 # Window borders
 default_border pixel 1
@@ -84,23 +94,10 @@ smart_gaps of
 gaps inner 0
 gaps outer 0
 
-# Autostart
-exec --no-startup-id mako
-exec --no-startup-id spotify
-exec --no-startup-id telegram-desktop
-exec gedit
-
 bindsym $mod+Print exec $screenclip
 bindsym $mod+Shift+Print exec $screenshot
 
 #bindsym $mod+Print exec gnome-screenshot -ai
-
-# Your preferred terminal emulator
-#set $term urxvt256c-ml
-set $term gnome-terminal
-
-# Your preferred application launcher
-set $menu dmenu_run
 
 ### Output configuration
 #
@@ -149,8 +146,8 @@ input "1008:12874:Chicony_HP_USB_Slim_Keyboard_System_Control" {
 
 input "1008:12874:Chicony_HP_USB_Slim_Keyboard" {
         xkb_layout br
-	xkb_numlock enabled
 #        xkb_variant thinkpad
+        xkb_numlock enabled
 }
 
 input "1:1:AT_Translated_Set_2_keyboard" {
@@ -240,44 +237,45 @@ bindsym $mod+0   workspace $ws0
 
 #bindsym mod2+$mod+KP_1 [class="scKP_1"] focus
 #bindsym mod2+$mod+Shift+KP_1 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_1
+#swaymsg -t get_tree | jq '.. | select(.focused? == true) | .id'
 
-bindcode $mod+87 [instance="scKP_1"] focus
-bindcode $mod+Shift+87 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_1
+bindcode $mod+87 [con_mark="n1"] focus
+bindcode $mod+Shift+87 exec swaymsg mark n1
 bindcode $mod+88 [class="Hexchat"] focus
-bindcode $mod+Shift+88 exec --no-startup-id xdotool getwindowfocus set_window --classname hexchat
+#bindcode $mod+Shift+88 exec swaymsg mark hexchat
 bindcode $mod+89 [app_id="org.gnome.gedit"] focus
-bindcode $mod+Shift+89 exec --no-startup-id xdotool getwindowfocus set_window --classname gedit
-bindcode $mod+83 [instance="scKP_4"] focus
-bindcode $mod+Shift+83 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_4
-bindcode $mod+84 [instance="scKP_5"] focus
-bindcode $mod+Shift+84 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_5
-bindcode $mod+85 [instance="scKP_6"] focus
-bindcode $mod+Shift+85 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_6
-bindcode $mod+79 [instance="scKP_7"] focus
-bindcode $mod+Shift+79 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_7
-bindcode $mod+80 [instance="Mail"] focus
-bindcode $mod+Shift+80 exec --no-startup-id xdotool getwindowfocus set_window --classname Mail
-bindcode $mod+81 [instance="scKP_9"] focus
-bindcode $mod+Shift+81 exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_9
+#bindcode $mod+Shift+89 exec --no-startup-id swaymsg mark gedit
+bindcode $mod+83 [con_mark="n4"] focus
+bindcode $mod+Shift+83 exec --no-startup-id swaymsg mark n4
+bindcode $mod+84 [con_mark="n5"] focus
+bindcode $mod+Shift+84 exec swaymsg mark n5
+bindcode $mod+85 [con_mark="n6"] focus
+bindcode $mod+Shift+85 exec --no-startup-id swaymsg mark n6
+bindcode $mod+79 [con_mark="n7"] focus
+bindcode $mod+Shift+79 exec --no-startup-id swaymsg mark n7
+bindcode $mod+80 [con_mark="n8"] focus
+bindcode $mod+Shift+80 exec --no-startup-id swaymsg mark n8
+bindcode $mod+81 [con_mark="n9"] focus
+bindcode $mod+Shift+81 exec --no-startup-id swaymsg mark n9
 # ESPECIAL ONES
 bindsym $mod+KP_Divide [instance="spotify"] focus
-bindsym $mod+Shift+KP_Divide exec --no-startup-id xdotool getwindowfocus set_window --classname spotify
-bindsym $mod+KP_Multiply [instance="scKP_Multiply"] focus
-bindsym $mod+Shift+KP_Multiply exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_Multiply
-bindsym $mod+KP_Subtract [app_id="telegram-desktop"] focus
-bindsym $mod+Shift+KP_Subtract exec --no-startup-id xdotool getwindowfocus set_window --classname telegram-desktop
-bindsym $mod+KP_Add [instance="scKP_Add"] focus
-bindsym $mod+Shift+KP_Add exec --no-startup-id xdotool getwindowfocus set_window --classname scKP_Add
+#bindsym $mod+Shift+KP_Divide exec --no-startup-id xdotool getwindowfocus set_window --classname spotify
+bindsym $mod+KP_Multiply [con_mark="n٭"] focus
+bindsym $mod+Shift+KP_Multiply exec swaymsg mark n٭
+bindsym $mod+KP_Subtract [instance="Telegram"] focus
+#bindsym $mod+Shift+KP_Subtract exec --no-startup-id xdotool getwindowfocus set_window --classname telegram-desktop
+bindsym $mod+KP_Add [con_mark="n+"] focus
+bindsym $mod+Shift+KP_Add exec --no-startup-id swaymsg mark n+
 
 
 #bindcode Control+$alt+88 exec hexchat
 #bindcode Control+$alt+89 exec gedit
 
 assign [class="Hexchat"] $ws2
-assign [class="Gedit"] $ws2
+assign [app_id="org.gnome.gedit"] $ws2
 assign [class="Steam"] $ws1
-assign [class="Telegram-desktop"] $ws1
-assign [class="[Ss]potify"] $ws2
+assign [instance="Telegram"] $ws1
+assign [instance="[Ss]potify"] $ws2
 
 #
 # Layout stuff:
@@ -361,6 +359,7 @@ for_window [class="Firefox" window_role="Preferences"] floating enable
 for_window [class="Firefox" instance="Download"] floating enable
 for_window [title="^About"] floating enable
 for_window [app_id="telegram-desktop"] border none
+for_window [instance="Telegram"] border none
 
 
 set $mode_system System: (l) lock, (e) logout, (s) suspend, (r) reboot, (S) shutdown, (R) UEFI
@@ -380,10 +379,16 @@ bindsym $mod+Shift+e mode "$mode_system"
 
 bindsym Control+$alt+k exec $lock
 bindsym Control+$alt+l exec $randomlock
+
 bindsym Control+$mod+k exec $blackout
 bindsym Control+$mod+l exec $qseblack
-
 
 #exec_always ~/.config/waybar/waybar.sh
 
 include /etc/sway/config.d/*
+
+# Autostart
+exec --no-startup-id mako
+exec --no-startup-id spotify
+exec --no-startup-id $telegram
+exec gedit
