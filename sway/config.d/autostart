@@ -1,0 +1,6 @@
+# Autostart
+exec --no-startup-id mako
+exec --no-startup-id spotify
+exec --no-startup-id $telegram
+exec --no-startup-id gedit
+exec --no-startup-id hexchat
