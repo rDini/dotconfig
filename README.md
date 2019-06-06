@@ -27,7 +27,6 @@ $ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-re
 ```
 ### I made some effort to try to filter all the dependencies, leaving only what is basic to install everything. I hope it will work fine.
   I did a fresh install, so it might be it..
-
 ```
 $ sudo dnf install mako sway swaylock waybar playerctl jq langpacks-pt_BR libsigc++ pavucontrol python2-devel sway-debugsource xdotool
 ```
@@ -60,16 +59,35 @@ $ sudo dnf config-manager --set-enabled google-chrome
 
 $ sudo dnf install google-chrome-stable
 ```
+#### Termite
+From [skidnik/termite](https://copr.fedorainfracloud.org/coprs/skidnik/termite/)
+
+Installation Instructions
+Enable copr:
+```
+# dnf copr enable skidnik/termite
+```
+install termite:
+```
+# dnf install termite
+```
+#### [GoTop](https://github.com/cjbassi/gotop):
+Clone the repo and then run scripts/download.sh to download the correct binary for your system from the releases tab:
+```
+git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
+/tmp/gotop/scripts/download.sh
+```
+Then move gotop into your `$PATH` somewhere.
 ### Installing Spotify:
 #### Some groups installed for it to work
 ```
-$ sudo dnf groupupdate multimedia
-$ sudo dnf groupupdate sound-and-video
+sudo dnf groupupdate multimedia
+sudo dnf groupupdate sound-and-video
 ```
 ```
-$ sudo dnf install lpf-spotify-client
-$ lpf approve spotify-client
-$ sudo dnf install /var/lib/lpf/rpms/spotify-client/spotify-client-*.rpm
+sudo dnf install lpf-spotify-client
+lpf approve spotify-client
+sudo dnf install /var/lib/lpf/rpms/spotify-client/spotify-client-*.rpm
 ```
 ### Other packages:
 ```
