@@ -3,9 +3,9 @@
     "position": "bottom",
     "height": 30,
 
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather", "cpu", "temperature", "memory", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
+    "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify", "sway/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "custom/weather", "cpu", "temperature", "memory", "custom/storage", "pulseaudio", "network", "idle_inhibitor"],
     "sway/mode": {
         "format": " {}"
     },

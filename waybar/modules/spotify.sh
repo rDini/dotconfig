@@ -5,8 +5,8 @@ icon=""
 
 if [[ $class == "playing" ]]; then
   info=$(playerctl metadata --player=spotify --format '{{artist}} - {{title}}')
-  if [[ ${#info} > 40 ]]; then
-    info=$(echo $info | cut -c1-40)"..."
+  if [[ ${#info} > 35 ]]; then
+    info=$(echo $info | cut -c1-35)"..."
   fi
   text=$info" "$icon
 elif [[ $class == "paused" ]]; then
