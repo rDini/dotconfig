@@ -13,7 +13,7 @@ set $alt Mod1
 set $screenshot grim ~/Pictures/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
 set $screenclip slurp | grim -g - ~/Pictures/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
 set $lock ~/.local/bin/scripts/lock.sh
-set $randomlock /usr/local/bin/locksway
+set $randomlock /usr/local/bin/triplelock
 set $blackout swaylock -c 000000
 # Bellow lock screen is set for 3 monitors, (or 2) and will set $background on the middle one . 
 set $qseblack swaylock -c 000000 -i $(swaymsg -t get_outputs | jq -r '.[] .name' | sed -n 2p):$background
@@ -85,10 +85,42 @@ set $ws8   8:8
 set $ws9   9:9
 set $ws0   10:10
 
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+output $dp-1 pos 0 0 res 1280x1024
+output $dp-2 pos 1280 0 res 2560x1080
+output $dp-3 pos 3840 0 res 1920x1080
+
+# Default outputs for workspaces
+workspace $ws3 output $dp-1
+workspace $ws1 output $dp-2
+workspace $ws2 output $dp-3
+
+exec sorteiowpp
+
+set $bgdir /home/rdini/Pictures/triplewallpaper
+#set $bequigraund $(cat /tmp/sorteiowpp)
+set $ualpape $bgdir/$(cat /tmp/sorteiowpp)
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output $dp-1 bg ~/Pictures/space/milky-way-triple-monitor-wallpaper-0-0.png tile #000000
+#output $dp-2 bg ~/Pictures/space/milky-way-triple-monitor-wallpaper-1-0.png fill #000000
+#output $dp-3 bg ~/Pictures/space/milky-way-triple-monitor-wallpaper-2-0.png fill #000000
+
+#exec_always triplewallpaper
+output $dp-1 bg $ualpape-0-0.png tile #000000
+output $dp-2 bg $ualpape-2-0.png fill #000000
+output $dp-3 bg $ualpape-1-0.png fill #000000
+
+
 
 # Window borders
 default_border pixel 1
-default_floating_border pixel 1
+default_floating_border pixel 2
 hide_edge_borders smart
 
 
@@ -274,6 +306,13 @@ for_window [class="Firefox" instance="Download"] floating enable
 for_window [title="^About"] floating enable
 for_window [app_id="telegram-desktop"] border none
 #for_window [title="nm-tray"] floating enable 
+
+### ASSIGN
+assign [class="Gedit"] $ws3
+assign [class="Steam"] $ws1
+assign [app_id="Telegram-desktop"] $ws2
+assign [instance="spotify"] $ws2
+
 
 ### LOCKING REBOOT AND OTHERS:
 

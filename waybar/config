@@ -29,7 +29,7 @@
             "ethernet": ["🖧 "],
             "disconnected": [""]
         },
-        "click-right": "nmcli con up id 'São Paulo (GRU2)'",
+        "click-right": "termite",
     "tooltip": false
     },
     "pulseaudio": {
