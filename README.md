@@ -4,11 +4,7 @@ What I had to install, run or compile:
 
 ![A Screenshot of my desktop](https://github.com/rDini/dotconfig/blob/master/scrn-2019-06-06-17-57-39.png)
 
-## Add the copr repo to install newer SWAY packages:
-I'm getting my sway from [Gumieri COPR](https://copr.fedorainfracloud.org/coprs/gumieri/sway/):
-```
-$ sudo dnf copr enable gumieri/sway
-```
+
 You will also need the following repos:
 ```
 repo id                    repo name                          
