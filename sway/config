@@ -1,0 +1,326 @@
+### rDini Config sway file
+
+# Read `man 5 sway` for a complete reference.
+#include ~/.config/sway/config.d/home.conf
+
+### Variables
+#
+# Logo key is $mod. Use Mod1 for Alt.
+
+set {
+  $mod Mod4
+  $alt Mod1
+  
+  $screenshot grim ~/Pictures/screenshots/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+  $screenclip grim -g "$(slurp)" - | wl-copy
+  $lock ~/.local/bin/scripts/lock.sh
+  $randomlock ~/.local/bin/scripts/triplelock
+  $blackout swaylock -c 000000
+  
+  # Bellow lock screen is set for 3 monitors, (or 2) and will set $background on the middle one . 
+  $qseblack swaylock -c 000000 -i $(swaymsg -t get_outputs | jq -r '.[] .name' | sed -n 2p):$background
+  
+  # play something and run $ pactl list short |grep RUNNING |awk '{ print $2 }'
+  $sink alsa_output.pci-0000_00_1f.3.analog-stereo
+  
+  $telegram ~/Downloads/Telegram\ Desktop/tsetup.1.7.0/Telegram/Updater
+  $term terminator
+  $menu rofi -show drun
+  
+  ## Set Multimidia keys
+  # $play XF86AudioPlay
+  # $next XF86AudioNext
+  # $prev XF86AudioPrev
+  # $stop XF86AudioStop
+  # $mute XF86AudioMute
+  # $volup XF86AudioRaiseVolume
+  # $voldw XF86AudioLowerVolume
+  
+### # Setting colors
+
+  $cl_high #380000
+  $cl_indi #d9d8d8
+  $cl_back #231f20
+  $cl_ligh #431616
+  $cl_fore #d9d8d8
+  $cl_urge #ee2e24
+  $cl_brdr #890000
+  
+  ### Output configuration
+# Setting Monitors:
+# To check their names run: 'swaymsg -t get_outputs ' 
+
+  $dp-1 HDMI-A-1
+  $dp-2 'Dell Inc. DELL E1911 CN3X024N0CTM'
+
+# workspaces
+  $ws1   1:⚙
+  $ws2   2:
+  $ws3   3:3
+  $ws4   4:4
+  $ws5   5:5
+  $ws6   6:6
+  $ws7   7:7
+  $ws8   8:8
+  $ws9   9:9
+  $ws0   10:10
+}
+###########################
+########## MAIN LAYOUT ####
+###########################
+
+# Window borders
+default_border pixel 1
+default_floating_border pixel 2
+hide_edge_borders smart
+for_window [app_id="ncmpcpp"] floating enable
+
+smart_borders on
+smart_gaps on
+gaps inner 7
+gaps outer 0
+gaps top -5
+workspace {
+  $ws2 output $dp-1
+  $ws1 output $dp-2
+  $ws3 output $dp-2
+}
+output {
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+  $dp-1 bg /home/rafael.dini/Pictures/wallpaper/001.png fit #000000
+  $dp-2 bg /home/rafael.dini/Pictures/wallpaper/002.png fit #000000
+  $dp-1 pos 0 0 res 1920x1080
+  $dp-2 pos 1920 0 res 1440x900
+}
+
+# Colors                border   bg       text     indi     childborder
+client.focused          $cl_high $cl_high $cl_fore $cl_indi $cl_high
+client.focused_inactive $cl_back $cl_ligh $cl_fore $cl_back $cl_back
+client.unfocused        $cl_brdr $cl_back $cl_fore $cl_back $cl_back
+client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+    
+# Layout mode for new containers | workspace_layout <default|stacking|tabbed>
+workspace_layout tabbed
+# Automatic back-and-forth when switching to the current workspace
+workspace_auto_back_and_forth yes
+    
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+    swaybar_command waybar
+#    colors {
+#        statusline #ffffff
+#        background #000000
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+}
+
+
+################################# FINISH LAYOUT
+
+bindsym {
+  Pause exec playerctl --player=spotify play-pause
+  $mod+Next exec playerctl next
+  $mod+Prior exec playerctl previous
+#  $stop exec playerctl stop
+#  $mute exec playerctl volume $sink 0
+  $mod+$alt+Up exec /usr/bin/pactl set-sink-volume $sink +5%
+  $mod+$alt+Down exec /usr/bin/pactl set-sink-volume $sink -5%
+#  $mod+$volup exec playerctl --player=spotify volume +5
+#  $mod+$voldw exec playerctl --player=spotify volume -5
+
+  $mod+Print exec $screenclip
+  $mod+Shift+Print exec $screenshot
+
+### Key bindings
+# Basics:
+#
+    # start a terminal
+  $mod+Return exec $term
+
+    # kill focused window
+  $mod+Shift+q kill
+
+    # start your launcher
+  $mod+d exec $menu
+
+    # reload the configuration file
+  $mod+Shift+c reload
+
+    # exit sway (logs you out of your wayland session)
+#   bindsym $mod+Shift+e exit
+  $mod+Shift+e mode "$mode_system"
+
+# Notifications
+  Control+Space exec makoctl dismiss
+  Control+Shift+Space exec makoctl dismiss --all
+
+#
+# Moving around:
+#
+    # or use $mod+[up|down|left|right]
+  $mod+Left focus left
+  $mod+Down focus down
+  $mod+Up focus up
+  $mod+Right focus right
+
+    # _move_ the focused window with the same, but add Shift
+    # ditto, with arrow keys
+  $mod+Shift+Left move left
+  $mod+Shift+Down move down
+  $mod+Shift+Up move up
+  $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # switch to workspace
+  $mod+1   workspace $ws1
+  $mod+2   workspace $ws2
+  $mod+3   workspace $ws3
+  $mod+4   workspace $ws4
+  $mod+5   workspace $ws5
+  $mod+apostrophe workspace $ws5
+  $mod+6   workspace $ws6
+  $mod+7   workspace $ws7
+  $mod+8   workspace $ws8
+  $mod+9   workspace $ws9
+  $mod+0   workspace $ws0
+
+
+# move focused container to workspace
+  $mod+Shift+1 move container to workspace $ws1
+  $mod+Shift+2 move container to workspace $ws2
+  $mod+Shift+3 move container to workspace $ws3
+  $mod+Shift+4 move container to workspace $ws4
+  $mod+Shift+5 move container to workspace $ws5
+  $mod+Shift+apostrophe move container to workspace $ws5
+  $mod+Shift+6 move container to workspace $ws6
+  $mod+Shift+7 move container to workspace $ws7
+  $mod+Shift+8 move container to workspace $ws8
+  $mod+Shift+9 move container to workspace $ws9
+  $mod+Shift+0 move container to workspace $ws0
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+  $mod+h splith
+  $mod+v splitv
+
+    # Switch the current container between different layout styles
+  $mod+s layout stacking
+  $mod+w layout tabbed
+  $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+  $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+  $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+  $mod+space focus mode_toggle
+
+    # move focus to the parent container
+  $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+  $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+  $mod+minus scratchpad show
+#lock screen
+#
+#  $alt+Control+k swaylock -i /home/rdini/Pictures/wallpaper/motherofdragons.png
+
+  Control+$alt+k exec $lock
+  Control+$alt+l exec $randomlock
+  Control+$mod+k exec $blackout
+  Control+$mod+l exec $qseblack
+}
+
+### LOCKING REBOOT AND OTHERS:
+
+set $mode_system System: (l) lock, (e) logout, (s) suspend, (r) reboot, (S) shutdown, (R) UEFI
+mode "$mode_system" {
+    bindsym l exec $lock, mode "default"
+    bindsym e exit
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym Shift+r exec --no-startup-id systemctl reboot --firmware-setup, mode "default"
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    # ditto, with arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bindcode Control+$alt+88 exec hexchat
+bindcode Control+$alt+89 exec gedit
+
+
+############ Window behavior
+# xprop WM_CLASS
+
+for_window {
+#  [class="Google-chrome"] border none
+  [class="Msgcompose"] border none
+#  [class="Chromium-browser"] border none
+  [class="ProjectM-pulseaudio"] border none
+  [class="Firefox" window_role="Preferences"] floating enable
+  [class="Firefox" instance="Download"] floating enable
+  [title="^About"] floating enable
+  [app_id="telegram-desktop"] border none
+#  [title="nm-tray"] floating enable 
+  [app_id="xdg-desktop-portal-gtk"] floating enable
+}
+
+### ASSIGN
+assign {
+  [class="Gedit"] $ws3
+  [class="Steam"] $ws1
+  [app_id="Telegram-desktop"] $ws2
+  [instance="spotify"] $ws2
+}
+
+include ~/.config/sway/config.d/*
