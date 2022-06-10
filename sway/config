@@ -68,6 +68,13 @@ set {
 ###########################
 ########## MAIN LAYOUT ####
 ###########################
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+  gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+}
+
+# Font  # pango:Sans
+font Hack-Regular 10
 
 # Window borders
 default_border pixel 1
