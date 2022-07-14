@@ -6,3 +6,7 @@ fi
 
 # Calc Function
 calc(){ awk "BEGIN{ print $* }" ;}
+
+export HISTTIMEFORMAT="%d/%m/%y %T "
+alias less='less -R'
+alias ll='ls -l'
